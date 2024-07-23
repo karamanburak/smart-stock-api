@@ -1,10 +1,9 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
-    NODEJS EXPRESS | CLARUSWAY FullStack Team
+    NODEJS EXPRESS | smart-stock-api
 ------------------------------------------------------- */
 // app.use(authentication):
 
 module.exports = async (req, res, next) => {
-
-    next()
-}
+  next();
+};

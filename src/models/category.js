@@ -1,6 +1,6 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
-    NODEJS EXPRESS | CLARUSWAY FullStack Team
+    NODEJS EXPRESS | smart-stock-api
 ------------------------------------------------------- */
-const { mongoose } = require('../configs/dbConnection')
+const { mongoose } = require("../configs/dbConnection");
 /* ------------------------------------------------------- */

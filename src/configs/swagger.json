@@ -4,10 +4,10 @@
     "version": "1.0.0",
     "title": "Stock Management API",
     "description": "Stock Management System",
-    "termsOfService": "http://www.clarusway.com/#",
+    "termsOfService": "",
     "contact": {
-      "name": "Clarusway",
-      "email": "qadir@clarusway.com"
+      "name": "burak",
+      "email": "karaman.buraak@gmail.com"
     },
     "license": {
       "name": "ISC Licence"
