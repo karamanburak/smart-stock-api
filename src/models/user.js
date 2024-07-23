@@ -3,6 +3,7 @@
     NODEJS EXPRESS | smart-stock-api
 ------------------------------------------------------- */
 const { mongoose } = require("../configs/dbConnection");
+const passwordEncrypt = require("../helpers/passwordEncrypt");
 /* ------------------------------------------------------- *
 {
     "username": "admin",
@@ -99,12 +100,42 @@ const UserSchema = new mongoose.Schema(
 /* ------------------------------------------------------- */
 // https://mongoosejs.com/docs/middleware.html
 
-UserSchema.pre("save", function (next) {
-  const data = thisclg;
-  console.log("this >>", data);
+UserSchema.pre(["save", "updateOne"], function (next) {
+  const data = this?._update || this;
+  //   console.log("this >> ", data);
+  //   console.log("pre(save) run.");
 
-  console.log("pre(save) run.");
-  next();
+  // email@domain.com
+  const isEmailValidated = data.email
+    ? /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)
+    : true;
+  //   console.log("email kontrol", isEmailValidated);
+
+  if (isEmailValidated) {
+    if (data?.password) {
+      const isPasswordValidated =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(
+          data.password
+        );
+
+      if (isPasswordValidated) {
+        data.password = passwordEncrypt(data.password);
+
+        // console.log("password Encrypt >> ", data.password);
+
+        if (this?._update) {
+          this._update = data;
+        } else {
+          this.password = data.password;
+        }
+      } else {
+        next(new Error("Password is not validated."));
+      }
+    }
+    next();
+  } else {
+    next(new Error("Email is not validated."));
+  }
 });
 
 /* ------------------------------------------------------- */

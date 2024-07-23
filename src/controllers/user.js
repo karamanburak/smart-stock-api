@@ -10,9 +10,12 @@ const passwordEncrypt = require("../helpers/passwordEncrypt");
 
 module.exports = {
   list: async (req, res) => {
+    const users = await res.getModelList(User);
     res.status(200).send({
       error: false,
-      data: "list",
+      details: await res.getModelListDetails(User),
+      totalRecords: users.length,
+      users,
     });
   },
 
@@ -37,9 +40,9 @@ module.exports = {
     req.body.isStaff = false;
     req.body.isAdmin = false;
 
-    console.log("create before");
-    const data = await User.create(req.body);
-    console.log("create after");
+    // console.log("create before");
+    const newUser = await User.create(req.body);
+    // console.log("create after");
 
     /* AUTO LOGIN *
         const tokenData = await Token.create({
@@ -50,29 +53,63 @@ module.exports = {
 
     res.status(201).send({
       error: false,
-      token: tokenData.token,
-      data,
+      //   token: tokenData.token,
+      newUser,
     });
   },
 
   read: async (req, res) => {
+    const user = await User.findOne({ _id: req.params.id });
     res.status(200).send({
       error: false,
-      data: "list",
+      user,
     });
   },
 
   update: async (req, res) => {
-    res.status(200).send({
+    /*
+            #swagger.tags = ["Users"]
+            #swagger.summary = "Update User"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    "username": "test",
+                    "password": "1234",
+                    "email": "test@site.com",
+                    "firstName": "test",
+                    "lastName": "test",
+                }
+            }
+        */
+    // console.log("--->>", req.params.id, req.user?.isAdmin);
+
+    // Sadece kendi kaydını güncelleyebilir:
+    //const customFilters = req.user?.isAdmin ? { _id: req.params.id } : { _id: req.user._id }
+    const customFilters = { _id: req.params.id };
+
+    // Yeni kayıtlarda admin/staff durumunu değiştiremez:
+    if (!req.user?.isAdmin) {
+      delete req.body.isStaff;
+      delete req.body.isAdmin;
+    }
+
+    const user = await User.updateOne(customFilters, req.body, {
+      runValidators: true,
+    });
+
+    res.status(202).send({
       error: false,
-      data: "list",
+      user,
+      new: await User.findOne(customFilters),
     });
   },
 
   delete: async (req, res) => {
-    res.status(200).send({
-      error: false,
-      data: "list",
+    const user = await User.deleteOne({ _id: req.params.id });
+    res.status(user.deletedCount ? 204 : 404).send({
+      error: !user.deletedCount,
+      user,
     });
   },
 };
