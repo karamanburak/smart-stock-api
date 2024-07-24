@@ -60,7 +60,7 @@ module.exports = {
             #swagger.summary = "Get Single Product"
         */
 
-    console.log("read run");
+    // console.log("read run");
 
     if (req.params.id) {
       // Single

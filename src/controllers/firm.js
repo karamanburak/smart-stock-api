@@ -52,12 +52,27 @@ module.exports = {
             #swagger.tags = ["Firms"]
             #swagger.summary = "Get Single Firm"
         */
-    const firm = await Firm.findOne({ _id: req.params.id });
-    res.status(200).send({
-      error: false,
-      details: await res.getModelListDetails(Firm),
-      firm,
-    });
+    if (req.params.id) {
+      // Single
+
+      const firm = await Firm.findOne({ _id: req.params.id });
+
+      res.status(200).send({
+        error: false,
+        firm,
+      });
+    } else {
+      // All
+
+      const firms = await res.getModelList(Firm);
+
+      res.status(200).send({
+        error: false,
+        details: await res.getModelListDetails(Firm),
+        totalRecords: firms.length,
+        firms,
+      });
+    }
   },
   update: async (req, res) => {
     /*
