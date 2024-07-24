@@ -1,5 +1,7 @@
 # STOCK MANAGEMENT API
 
+- [smart-stock-api Live Link]()
+
 ### ERD:
 
 ![ERD](./erdStockAPI.png)
@@ -58,3 +60,10 @@
             token.js
             user.js
 ```
+
+## Documentations
+
+- [View Postman Documentation](https://documenter.getpostman.com/view/32987022/2sA3kXEfvF)
+- [View Swagger Documentation]()
+- [View Redoc Documentation]()
+- [View Json Documentation]()
