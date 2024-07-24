@@ -10,10 +10,30 @@ const passwordEncrypt = require("../helpers/passwordEncrypt");
 
 module.exports = {
   list: async (req, res) => {
-    const users = await res.getModelList(User);
+    /*
+            #swagger.tags = ["Users"]
+            #swagger.summary = "List Users"
+            #swagger.description = `
+                You can use <u>filter[] & search[] & sort[] & page & limit</u> queries with endpoint.
+                <ul> Examples:
+                    <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>
+                    <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+                    <li>URL/?<b>sort[field1]=asc&sort[field2]=desc</b></li>
+                    <li>URL/?<b>limit=10&page=1</b></li>
+                </ul>
+            `
+        */
+
+    // Sadece kendi kayıtlarını görebilir:
+    // Çalışanlarımız ve Admin tük kullanıcıları görebilir
+    const customFilters =
+      req.user?.isAdmin || req.user?.isStaff ? {} : { _id: req.user._id };
+
+    const users = await res.getModelList(User, customFilters);
+
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(User),
+      details: await res.getModelListDetails(User, customFilters),
       totalRecords: users.length,
       users,
     });
@@ -59,7 +79,17 @@ module.exports = {
   },
 
   read: async (req, res) => {
-    const user = await User.findOne({ _id: req.params.id });
+    /*
+            #swagger.tags = ["Users"]
+            #swagger.summary = "Get Single User"
+        */
+
+    // Sadece kendi kayıtını görebilir:
+    // Çalışanlarımız ve Admin tük kullanıcıları görebilir
+    const customFilters =
+      req.user?.isAdmin || req.user?.isStaff ? {} : { _id: req.user._id };
+
+    const user = await User.findOne(customFilters);
     res.status(200).send({
       error: false,
       user,
@@ -106,10 +136,24 @@ module.exports = {
   },
 
   delete: async (req, res) => {
-    const user = await User.deleteOne({ _id: req.params.id });
-    res.status(user.deletedCount ? 204 : 404).send({
-      error: !user.deletedCount,
-      user,
-    });
+    /*
+            #swagger.tags = ["Users"]
+            #swagger.summary = "Delete User"
+        */
+    //* Permission tarafinda isAdmin kontrolü yapildigi icin burda gerek kalmadi.
+    if (req.params.id !== req.user._id) {
+      const data = await User.deleteOne({ _id: req.params.id });
+      const count = data?.deletedCount ?? 0;
+
+      console.log("delete >> ", count);
+      res.status(count > 0 ? 204 : 404).send({
+        error: count !== 0,
+        data,
+      });
+    } else {
+      // Admin kendini silemez.
+      res.errorStatusCode = 403;
+      throw new Error("You can not remove your account.");
+    }
   },
 };

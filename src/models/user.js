@@ -52,6 +52,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
+      // validate ... // validasyon işlemini pre(save) yapıyor
       // Encrypt işlemini pre(save) yapıyoruz
     },
 
