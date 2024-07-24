@@ -48,7 +48,7 @@ module.exports = {
 
     const newProduct = await Product.create(req.body);
 
-    res.status(200).send({
+    res.status(201).send({
       error: false,
       newProduct,
     });
@@ -109,7 +109,7 @@ module.exports = {
       runValidators: true,
     });
 
-    res.status(200).send({
+    res.status(202).send({
       error: false,
       newProduct: await Product.findOne({ _id: req.params.id }),
       product,
