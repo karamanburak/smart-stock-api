@@ -57,8 +57,8 @@ module.exports = {
         */
 
     // Yeni kayıtlarda admin/staff = false
-    req.body.isStaff = false;
-    req.body.isAdmin = false;
+    // req.body.isStaff = false;
+    // req.body.isAdmin = false;
 
     // console.log("create before");
     const newUser = await User.create(req.body);
@@ -73,7 +73,7 @@ module.exports = {
 
     res.status(201).send({
       error: false,
-      //   token: tokenData.token,
+      // token: tokenData.token,
       newUser,
     });
   },

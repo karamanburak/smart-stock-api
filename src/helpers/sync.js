@@ -1,11 +1,11 @@
 "use strict";
 /* -------------------------------------------------------
-    NODEJS EXPRESS | amart-stock-api
+    NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
 // sync():
 
 module.exports = async function () {
-  //   return null;
+  // return null;
 
   /* REMOVE DATABASE *
     const { mongoose } = require('../configs/dbConnection')
@@ -225,35 +225,40 @@ module.exports = async function () {
     name: "Tommy",
     categoryId: "65343222b67e9681f937f203",
     brandId: "65343222b67e9681f937f107",
-    stock: 0,
+    price: 99.99,
+    quantity: 0,
   });
   await Product.create({
     _id: "65343222b67e9681f937f422",
     name: "Link",
     categoryId: "65343222b67e9681f937f202",
     brandId: "65343222b67e9681f937f123",
-    stock: 910,
+    price: 399.99,
+    quantity: 910,
   });
   await Product.create({
     _id: "65343222b67e9681f937f423",
     name: "Cola Turka",
     categoryId: "65343222b67e9681f937f202",
     brandId: "65343222b67e9681f937f123",
-    stock: 750,
+    price: 49.99,
+    quantity: 750,
   });
   await Product.create({
     _id: "65343222b67e9681f937f426",
     name: "Rondo",
     categoryId: "65343222b67e9681f937f201",
     brandId: "65343222b67e9681f937f123",
-    stock: 900,
+    price: 299.99,
+    quantity: 900,
   });
   await Product.create({
     _id: "65343222b67e9681f937f427",
     name: "Iphone 14 Pro",
     categoryId: "65343222b67e9681f937f204",
+    price: 199.99,
     brandId: "65343222b67e9681f937f131",
-    stock: 0,
+    quantity: 0,
   });
 
   /* Purchase */

@@ -20,14 +20,101 @@ module.exports = {
             `
         */
 
-    const data = await res.getModelList(Product, {}, ["categoryId", "brandId"]);
+    const products = await res.getModelList(Product, {}, [
+      "categoryId",
+      "brandId",
+    ]);
+
+    res.status(200).send({
+      error: false,
+      details: await res.getModelListDetails(Product),
+      totalRecords: products.length,
+      products,
+    });
   },
 
-  create: async (req, res) => {},
+  create: async (req, res) => {
+    /*
+            #swagger.tags = ["Products"]
+            #swagger.summary = "Create Product"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    "name": "Product 1"
+                }
+            }
+        */
 
-  read: async (req, res) => {},
+    const newProduct = await Product.create(req.body);
 
-  update: async (req, res) => {},
+    res.status(200).send({
+      error: false,
+      newProduct,
+    });
+  },
+
+  read: async (req, res) => {
+    /*
+            #swagger.tags = ["Products"]
+            #swagger.summary = "Get Single Product"
+        */
+
+    console.log("read run");
+
+    if (req.params.id) {
+      // Single
+
+      const product = await Product.findOne({ _id: req.params.id }).populate([
+        "categoryId",
+        "brandId",
+      ]);
+
+      res.status(200).send({
+        error: false,
+        product,
+      });
+    } else {
+      // All
+
+      const products = await res.getModelList(Product, {}, [
+        "categoryId",
+        "brandId",
+      ]);
+
+      res.status(200).send({
+        error: false,
+        details: await res.getModelListDetails(Product),
+        totalRecords: products.length,
+
+        products,
+      });
+    }
+  },
+
+  update: async (req, res) => {
+    /*
+            #swagger.tags = ["Products"]
+            #swagger.summary = "Update Product"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    "name": "Product 1"
+                }
+            }
+        */
+
+    const product = await Product.updateOne({ _id: req.params.id }, req.body, {
+      runValidators: true,
+    });
+
+    res.status(200).send({
+      error: false,
+      newProduct: await Product.findOne({ _id: req.params.id }),
+      product,
+    });
+  },
 
   delete: async (req, res) => {},
 };
