@@ -12,8 +12,7 @@ const permissions = require("../middlewares/permissions");
 // URL: /categories
 
 // router.route('/')
-//     // .get(permissions.isStaff, category.list)
-//     .get(permissions.isStaff, category.read)
+//     .get(permissions.isStaff, category.list)
 //     .post(permissions.isAdmin, category.create)
 
 // router.route('/:id')

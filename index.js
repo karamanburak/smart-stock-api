@@ -26,6 +26,10 @@ dbConnection();
 /* ------------------------------------------------------- */
 // Middlewares:
 
+// CORS
+const cors = require("cors");
+app.use(cors());
+
 // Accept JSON:
 app.use(express.json());
 
