@@ -14,13 +14,13 @@ module.exports = {
     /*
             #swagger.tags = ["Authentication"]
             #swagger.summary = "Login"
-            #swagger.description = 'Login with username (or email) and password for get Token and JWT.'
+            #swagger.description = 'Login with username (or email) and password for get simpleToken and JWT'
             #swagger.parameters["body"] = {
                 in: "body",
                 required: true,
                 schema: {
                     "username": "test",
-                    "password": "1234",
+                    "password": "aA?123456",
                 }
             }
         */
@@ -80,18 +80,9 @@ module.exports = {
 
   refresh: async (req, res) => {
     /*
-            #swagger.tags = ['Authentication']
-            #swagger.summary = 'JWT: Refresh'
-            #swagger.description = 'Refresh access-token by refresh-token.'
-            #swagger.parameters['body'] = {
-                in: 'body',
-                required: true,
-                schema: {
-                    bearer: {
-                        refresh: '___refreshToken___'
-                    }
-                }
-            }
+            #swagger.tags = ["Authentication"]
+            #swagger.summary = "JWT : Refresh"
+            #swagger.description = 'Refresh token.'
         */
 
     const refreshToken = req.body?.bearer?.refreshToken;
@@ -147,8 +138,8 @@ module.exports = {
   logout: async (req, res) => {
     /*
             #swagger.tags = ["Authentication"]
-            #swagger.summary = "Token: Logout"
-            #swagger.description = 'Delete token-key.'
+            #swagger.summary = "simpleToken: Logout"
+            #swagger.description = 'Delete token key.'
         */
 
     const auth = req.headers?.authorization || null; // Token ...tokenKey... // Bearer ...accessToken...

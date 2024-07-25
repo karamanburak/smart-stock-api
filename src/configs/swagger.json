@@ -46,7 +46,7 @@
           "Authentication"
         ],
         "summary": "Login",
-        "description": "Login with username (or email) and password for get Token and JWT.",
+        "description": "Login with username (or email) and password for get simpleToken and JWT",
         "parameters": [
           {
             "name": "body",
@@ -61,7 +61,7 @@
                 },
                 "password": {
                   "type": "string",
-                  "example": "1234"
+                  "example": "aA?123456"
                 }
               }
             }
@@ -79,29 +79,8 @@
         "tags": [
           "Authentication"
         ],
-        "summary": "JWT: Refresh",
-        "description": "Refresh access-token by refresh-token.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "bearer": {
-                  "type": "object",
-                  "properties": {
-                    "refresh": {
-                      "type": "string",
-                      "example": "___refreshToken___"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        ],
+        "summary": "JWT : Refresh",
+        "description": "Refresh token.",
         "responses": {
           "200": {
             "description": "OK"
@@ -114,8 +93,8 @@
         "tags": [
           "Authentication"
         ],
-        "summary": "Token: Logout",
-        "description": "Delete token-key.",
+        "summary": "simpleToken: Logout",
+        "description": "Delete token key.",
         "responses": {
           "200": {
             "description": "OK"

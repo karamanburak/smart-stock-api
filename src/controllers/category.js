@@ -21,12 +21,12 @@ module.exports = {
                 </ul>
             `
         */
-    const categorys = await res.getModelList(Category);
+    const categories = await res.getModelList(Category);
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails(Category),
-      totalRecords: categorys.length,
-      categorys,
+      totalRecords: categories.length,
+      categories,
     });
   },
   create: async (req, res) => {
