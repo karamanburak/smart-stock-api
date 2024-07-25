@@ -116,5 +116,17 @@ module.exports = {
     });
   },
 
-  delete: async (req, res) => {},
+  delete: async (req, res) => {
+    /*
+            #swagger.tags = ["Products"]
+            #swagger.summary = "Delete Product"
+        */
+
+    const product = await Product.deleteOne({ _id: req.params.id });
+
+    res.status(product.deletedCount ? 204 : 404).send({
+      error: !product.deletedCount,
+      product,
+    });
+  },
 };
