@@ -61,6 +61,14 @@ app.all("/", (req, res) => {
 // Routes:
 app.use(require("./src/routes"));
 
+//* eşleşmeyen routeları yakalar
+app.use((req, res, next) => {
+  res.status(404).send({
+    error: true,
+    message: "Route not found!",
+  });
+});
+
 /* ------------------------------------------------------- */
 
 // errorHandler:

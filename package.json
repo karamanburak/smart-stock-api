@@ -2,14 +2,14 @@
   "title": "Stock Management API",
   "name": "stockapi",
   "version": "1.0.0",
-  "description": "Stock Management System",
+  "description": "smart-stock-api",
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
     "debug": "DEBUG=* nodemon"
   },
   "keywords": [],
-  "author": "Clarusway",
+  "author": "Burak Karaman",
   "license": "ISC Licence",
   "dependencies": {
     "dotenv": "^16.3.1",

@@ -3,10 +3,10 @@
   "info": {
     "version": "1.0.0",
     "title": "Stock Management API",
-    "description": "Stock Management System",
+    "description": "smart-stock-api",
     "termsOfService": "",
     "contact": {
-      "name": "Burak",
+      "name": "Burak Karaman",
       "email": "karaman.buraak@gmail.com"
     },
     "license": {

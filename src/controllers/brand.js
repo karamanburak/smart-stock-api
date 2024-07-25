@@ -41,6 +41,10 @@ module.exports = {
                 }
             }
         */
+    // userId verisni req.user'dan al
+    req.body.userId = req.user._id;
+
+    //* Create
     const newBrand = await Brand.create(req.body);
     res.status(201).send({
       error: false,
